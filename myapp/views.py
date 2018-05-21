@@ -43,7 +43,7 @@ def song_del(request, song_id):
 
 class CommentList(ListView):
     """感想の一覧"""
-    context_object_name = 'comment'
+    context_object_name = 'comments'
     template_name = 'myapp/comment_list.html'
     # 1ページは最大2件ずつでページングする
     paginate_by = 2
@@ -75,10 +75,10 @@ def comment_edit(request, song_id, comment_id=None):
             comment.song = song
             comment.save()
             return redirect('myapp:comment_list', song_id=song_id)
-        else:  # GETの時
-            form = CommentForm(instance=comment)
+    else:  # GETの時
+        form = CommentForm(instance=comment)
 
-        return render(request, 'myapp/comment_edit.html', dict(form=form, song_id=song_id, comment_id=comment_id))
+    return render(request, 'myapp/comment_edit.html', dict(form=form, song_id=song_id, comment_id=comment_id))
 
 
 def comment_del(request, song_id, comment_id):
